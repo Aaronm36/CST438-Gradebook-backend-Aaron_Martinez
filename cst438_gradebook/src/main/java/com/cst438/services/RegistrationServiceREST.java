@@ -25,7 +25,7 @@ public class RegistrationServiceREST implements RegistrationService {
 	
 	RestTemplate restTemplate = new RestTemplate();
 	
-	@Value("${registration.url}") 
+	@Value("${registration.url}")
 	String registration_url;
 	
 	public RegistrationServiceREST() {
@@ -36,6 +36,7 @@ public class RegistrationServiceREST implements RegistrationService {
 	public void sendFinalGrades(int course_id , FinalGradeDTO[] grades) { 
 		
 		//TODO use restTemplate to send final grades to registration service
+		restTemplate.put(registration_url + course_id, grades);
 		
 	}
 	
@@ -56,10 +57,18 @@ public class RegistrationServiceREST implements RegistrationService {
 		
 		// Receive message from registration service to enroll a student into a course.
 		
-		System.out.println("GradeBook addEnrollment "+enrollmentDTO);
-		
+		System.out.println("GradeBook addEnrollment "+ enrollmentDTO);
+
+		Course c = courseRepository.findById(enrollmentDTO.courseId()).orElse(null);
+		Enrollment newCourseEnrollment = new Enrollment();
+		newCourseEnrollment.setCourse(c);
+		newCourseEnrollment.setStudentName(enrollmentDTO.studentName());
+		newCourseEnrollment.setStudentEmail(enrollmentDTO.studentEmail());
+		enrollmentRepository.save(newCourseEnrollment);
+
+
 		//TODO remove following statement when complete.
-		return null;
+		return enrollmentDTO;
 		
 	}
 
