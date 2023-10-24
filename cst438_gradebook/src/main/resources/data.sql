@@ -1,13 +1,13 @@
 
-INSERT INTO course (year, semester, course_id, title, instructor)  VALUES 
-(2020,'Fall',30157,'BUS 203 - Financial Accounting','cchou@csumb.edu'),
-(2020,'Fall',30163,'BUS 306 - Fundamentals of Marketing','anariswari@csumb.edu'),
-(2020,'Fall',30291,'BUS 304 - Business Communication, Pro-seminar & Critical Thinking','kposteher@csumb.edu'),
-(2020,'Fall',31045,'CST 363 - Introduction to Database Systems','dwisneski@csumb.edu'),
-(2020,'Fall',31249,'CST 237 - Intro to Computer Architecture','sislam@csumb.edu'),
-(2020,'Fall',31253,'BUS 307 - Finance','hwieland@csumb.edu'),
-(2020,'Fall',31747,'CST 238 - Introduction to Data Structures','jgross@csumb.edu'),
-(2021,'Fall',40443,'CST 238 - Introduction to Networks','dwisneski@csumb.edu')
+INSERT INTO course (year, semester, course_id, title, instructor, password, role)  VALUES 
+(2020,'Fall',30157,'BUS 203 - Financial Accounting','cchou@csumb.edu', '$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue', 'INSTUCTOR'),
+(2020,'Fall',30163,'BUS 306 - Fundamentals of Marketing','anariswari@csumb.edu', '$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue', 'INSTUCTOR'),
+(2020,'Fall',30291,'BUS 304 - Business Communication, Pro-seminar & Critical Thinking','kposteher@csumb.edu', '$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue', 'INSTUCTOR'),
+(2020,'Fall',31045,'CST 363 - Introduction to Database Systems','dwisneski@csumb.edu', '$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue', 'INSTUCTOR'),
+(2020,'Fall',31249,'CST 237 - Intro to Computer Architecture','sislam@csumb.edu', '$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue', 'INSTUCTOR'),
+(2020,'Fall',31253,'BUS 307 - Finance','hwieland@csumb.edu', '$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue', 'INSTUCTOR'),
+(2020,'Fall',31747,'CST 238 - Introduction to Data Structures','jgross@csumb.edu', '$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue', 'INSTUCTOR'),
+(2021,'Fall',40443,'CST 238 - Introduction to Networks','dwisneski2@csumb.edu', '$2a$10$NVM0n8ElaRgg7zWO1CxUdei7vWoPg91Lz2aYavh9.f9q0e4bRadue', 'INSTUCTOR')
 ;
 
 insert into assignment (id, due_date, name, course_id) values 

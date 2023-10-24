@@ -4,6 +4,8 @@ CREATE TABLE course (
   semester varchar(255) DEFAULT NULL,
   title varchar(255) DEFAULT NULL,
   year int NOT NULL,
+  password varchar(100),
+  role varchar(25),
   PRIMARY KEY (course_id)
 );
 
