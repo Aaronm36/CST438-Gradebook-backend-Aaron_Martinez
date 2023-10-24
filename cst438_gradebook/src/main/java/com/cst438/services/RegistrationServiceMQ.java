@@ -6,6 +6,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,13 +34,14 @@ public class RegistrationServiceMQ implements RegistrationService {
 	public RegistrationServiceMQ() {
 		System.out.println("MQ registration service ");
 	}
-	
-	@Bean
-	Queue createQueue() {
-		return new Queue("gradebook-queue");
-	}
+
 
 	Queue registrationQueue = new Queue("registration-queue", true);
+
+	@Bean
+	public Queue createQueue() {
+		return new Queue("gradebook-queue", true);
+	}
 
 	/*
 	 * Receive message for student added to course
@@ -47,24 +49,35 @@ public class RegistrationServiceMQ implements RegistrationService {
 	@RabbitListener(queues = "gradebook-queue")
 	@Transactional
 	public void receive(String message) {
-		
+
 		System.out.println("Gradebook has received: "+message);
 
 		//TODO  deserialize message to EnrollmentDTO and update database
+		EnrollmentDTO enrollmentDTO = fromJsonString(message, EnrollmentDTO.class);
+
+		Course c = courseRepository.findById(enrollmentDTO.courseId()).orElse(null);
+		Enrollment newCourseEnrollment = new Enrollment();
+		newCourseEnrollment.setCourse(c);
+		newCourseEnrollment.setStudentName(enrollmentDTO.studentName());
+		newCourseEnrollment.setStudentEmail(enrollmentDTO.studentEmail());
+		enrollmentRepository.save(newCourseEnrollment);
+
 	}
 
 	/*
-	 * Send final grades to Registration Service 
+	 * Send final grades to Registration Service
 	 */
 	@Override
 	public void sendFinalGrades(int course_id, FinalGradeDTO[] grades) {
-		 
+
 		System.out.println("Start sendFinalGrades "+course_id);
 
 		//TODO convert grades to JSON string and send to registration service
-		
+		String data = asJsonString(grades);
+		rabbitTemplate.convertAndSend(registrationQueue.getName(), data);
+
 	}
-	
+
 	private static String asJsonString(final Object obj) {
 		try {
 			return new ObjectMapper().writeValueAsString(obj);
